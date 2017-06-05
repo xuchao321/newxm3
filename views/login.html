@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/javascripts/jquery-2.2.4.min.js"></script>
+</head>
+<body>
+    <form action="/users/login"  method=post>
+        <table border=1 style=background-color:pink;width:500px;height:300px;text-align:center>
+            <tr>
+                <td>用户名</td>
+                <td><input type="text" name="userName" placeholder="请输入用户名" required style="color:blue"></td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td><input type="password" name="password" placeholder="请输入密码"  required style="color:blue;border:none"></td>
+            </tr>
+          <tr>
+              <td>
+                  <select   onchange="cha(this.value)">
+                      <option>省</option>
+                      <option value="1">黑龙江</option>
+                      <option value="2">辽宁</option>
+                  </select>
+                  <select id="shi">
+                      <option value=""> 市</option>
+                  </select>
+              </td>
+
+          </tr>
+            <tr >
+                <td colspan=2><input type="submit" value="提交" style="width:100px"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script>
+    function cha(a) {
+        var url="/users/sheng";
+        var data={id:a}
+        $.post(url,data,function (result) {
+            var str="";
+          console.info(result.length);
+            for(var i=0;i<result.length;i++){
+                str+="<option value="+result[i].id+">"+result[i].name+"</option>"
+            };
+            $("#shi").html(str);
+
+        },"json")
+    }
+</script>
+</html>
